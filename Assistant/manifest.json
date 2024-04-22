@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "Assistant",
+    "version": "1.0.0",
+    "description": "Gemini Extended",
+    "author": "Manav Bafna",
+    "current_locale": "en",
+    "action": {
+        "default_icon": {
+            "16": "images/icon.png",
+            "24": "images/icon.png",
+            "32": "images/icon.png"
+        },
+        "default_title": "Assistant",
+        "default_popup": "popup.html"
+    },
+    "host_permissions": [
+        "https://*/"
+    ],
+    "permissions": [
+        "clipboardWrite",
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "icons": {
+        "16": "images/icon.png",
+        "32": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content_Script.js"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "service_worker.js"
+    }
+}

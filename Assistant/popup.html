@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Extension Popup</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+    <div id="initial">
+        <h1>Welcome to My Extension!</h1>
+        <p>Click below to Get Started</p>
+        <button class="button" id="getStartedBtn">Get Started</button>
+        <button class="button" id="chat">Chat</button>
+    </div>
+
+    <div id="carouselContainer" style="display: none;">
+        <button id="prevBtn" class="carousel-btn" style="background-image: url('images/leftarrow.png');"></button>
+        <div class="carousel-slides">
+            <div class="carousel-slide">
+                <h2>Finding API</h2>
+                <p>This extension uses Google's Gemini</p>
+                <p>Login here</p>
+                <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a>
+            </div>
+            <div class="carousel-slide">
+                <h2>Generating API</h2>
+                <p>Click "Get API key"</p>
+            </div>
+            <div class="carousel-slide">
+                <h2>Generating API</h2>
+                <p>Click on "Create API key"</p>
+                <p>Copy API key and click next</p>
+            </div>
+            <div class="carousel-slide">
+                <h2>Icon represents status</h2>
+                <p>Green or White means result is ready</p>
+                <p>Yellow means waiting for response</p>
+                <p>Red means there's been an error</p>
+            </div>
+            <div class="carousel-slide">
+                <h2>Highlight of Extension</h2>
+                <p>Select a prompt anywhere on browser</p>
+                <p>Then press Ctrl/Cmd + ' and </p>
+                <p>AI's result will be pasted on clipboard</p>
+            </div>
+            <div class="carousel-slide">
+                <h2>Demo Slide</h2>
+                <p>Demo Content for Slide goes here...</p>
+            </div>
+        </div>
+        <button id="nextBtn" class="carousel-btn" style="background-image: url('images/rightarrow.png');"></button>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+</html>

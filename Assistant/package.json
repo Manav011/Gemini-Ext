@@ -1,0 +1,12 @@
+{
+  "name": "assistant",
+  "version": "1.0.0",
+  "description": "Learnign how to make extension and using API",
+  "main": "service_worker.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manav Bafna",
+  "license": "ISC"
+}
