@@ -1,24 +1,16 @@
-var API;
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.API) {
-        API = request.API;
-        // console.log('Message Listener ' + API);
-    }
-});
-
 document.addEventListener('keydown', function(event) {
     if ((event.ctrlKey || event.metaKey) && event.key === "'") {
-        if(!API){
-            // console.log('keydown ' + API);
-            alert("Please set your API key in the extension options.");
-        }else{
-            sendSelectedText();
-        }
+        chrome.storage.local.get(['API'], (res) => {
+            if(res.API){
+                sendSelectedText(res.API);
+            }else{
+                    alert("Please set your API key in the extension options.");
+            }
+        })
     }
 });
 
-function sendSelectedText(){
+function sendSelectedText(API){
     var msg = window.getSelection().toString();
     chrome.runtime.sendMessage({type: 'updateIcon', iconPath: 'images/waiting.png'});
     // console.log(msg);

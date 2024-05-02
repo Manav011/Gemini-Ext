@@ -1,23 +1,28 @@
 var isResponding = false;
-const API = localStorage.getItem('geminiAPIKey');
+let API;
 
 document.getElementById('getStartedBtn').addEventListener('click', () => {
-    if (!API) {
-        document.getElementById('carouselContainer').style.display = 'flex';
-        document.getElementById('initial').style.display = 'none';
-        initCarousel();
-    } else {
-        renderApiKeyOptions(API);
-    }
+    chrome.storage.local.get(['API'], (res) => {
+        if(res.API){
+            API = res.API
+            renderApiKeyOptions(res.API);
+        }else{
+            document.getElementById('carouselContainer').style.display = 'flex';
+            document.getElementById('initial').style.display = 'none';
+            initCarousel();
+        }
+    })
 });
 
 document.getElementById('chat').addEventListener('click', () => {
-    if (API) {
-        showChatWindow();
-    }
-    else{
-        alert("Please provide your gemini API key first, Click on Get Started");
-    }
+    chrome.storage.local.get(['API'], (res) => {
+        if(res.API){
+            API = res.API
+            showChatWindow();
+        }else{
+            alert("Please provide your gemini API key first, Click on Get Started");
+        }
+    })
 });
 
 
@@ -47,10 +52,7 @@ function renderApiKeyForm() {
         event.preventDefault();
         var newApiKey = apiKeyInput.value.trim();
         if (newApiKey) {
-            localStorage.setItem('geminiAPIKey', newApiKey);
-            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, { API: API });
-            });
+            chrome.storage.local.set({"API" : newApiKey})
             renderApiKeyOptions(newApiKey);
         }
     });
@@ -71,7 +73,9 @@ function renderApiKeyOptions(apiKey) {
     document.body.appendChild(deleteBtn);
 
     deleteBtn.addEventListener('click', function() {
-        localStorage.removeItem('geminiAPIKey');
+        chrome.storage.local.remove('API', () => {
+            console.log("API deleted successfully");
+        })
         renderApiKeyForm();
     });
 }
@@ -171,7 +175,7 @@ function sendPrompt() {
         })
         .catch(err => {
             chrome.runtime.sendMessage({type: 'updateIcon', iconPath: 'images/error.png'});
-            console.error('error ' + err);
+            console.error(err);
         });
 
         // setTimeout(function() {
